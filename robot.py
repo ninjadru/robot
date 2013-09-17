@@ -17,18 +17,35 @@ def main():
     (options, args) = parser.parse_args()
     if options.todo:
 	output = ("* " + options.todo)
+	date = datetime.datetime.now()
+    	datestamp = date.strftime('%m|%d|%Y ')
+    	file.write( datestamp + output + "\n" )
+    	file.close()
+
     elif options.idea:
 	output = ("! " + options.idea)
+	date = datetime.datetime.now()
+    	datestamp = date.strftime('%m|%d|%Y ')
+    	file.write( datestamp + output + "\n" )
+    	file.close()
+
     elif options.event:
 	output = ("@ " + options.event)
-    date = datetime.datetime.now()
-    datestamp = date.strftime('%m|%d|%Y ')
-    file.write( datestamp + output + "\n" )
-    file.close()
+	date = datetime.datetime.now()
+    	datestamp = date.strftime('%m|%d|%Y ')
+    	file.write( datestamp + output + "\n" )
+    	file.close()
+
+    elif options.lst:
+        file = open("ana.log", "r")
+	lines= file.readlines() # Note that the content of line changes 
+	print ''.join(lines)
+	file.close()
 
 
 
 if __name__ == "__main__":
     main()
+
 
 
