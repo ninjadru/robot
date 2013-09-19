@@ -5,6 +5,8 @@
 #dru streicher evil.little.dru@gmail.com
 #gplv2
 import datetime
+
+#adds help menu stuff
 from optparse import OptionParser
 def main():
     file = open('ana.log', 'a')
