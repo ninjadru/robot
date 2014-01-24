@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-#this script builds the icinga configuration for MMO wah edge boxes
+#this script builds robot projects
 import os
 
 #set variables
