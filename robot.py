@@ -1,33 +1,44 @@
-#!/usr/bin/python -O
 #robot
-#an attempt to make a digital clone of the bullet journal
-#also an attempt to learn python
+#(R)eally
+#(O)rganized
+#(B)uilder
+#(O)f
+#(T)asks
 #dru streicher evil.little.dru@gmail.com
 #gplv2
+
 import datetime
+import shutil
+import os, sys
 
 #adds help menu stuff
 from optparse import OptionParser
+
+archive = "archive/"
+active = "active/"
 def main():
-    file = open('ana.log', 'a')
     usage = "usage: %prog [options] arg"
     parser = OptionParser(usage)
-    parser.add_option("-d", "--date", action="store_true", help="add a date stamp")
-    parser.add_option("-t", "--todo", dest="todo", help="adds an entry for a todo")
-    parser.add_option("-i", "--idea", dest="idea", help="adds an entry for an idea")
-    parser.add_option("-e", "--event", dest="event", help="adds an entry for an event")
-    parser.add_option("-l", "--list", action="store_true", dest="lst", help="list all entries")
+    parser.add_option("-c", "--create", dest="create", help="crete a new project")
+    parser.add_option("-a", "--archive", dest="archive", help="archive a completed project")
+    parser.add_option("-l", "--list", action="store_true", dest="lst", help="lists all the active projects")
     (options, args) = parser.parse_args()
-    if options.date:
-	date = datetime.datetime.now()
-        datestamp = date.strftime('%m|%d|%Y ')        
-        file.write( datestamp + "\n" + "--------" + "\n" )
+    if options.create:
+	file = open( active + options.create + ".md", 'a')
+	project = ( options.create)
+	goal = raw_input("What is the desied end goal:")
+        file.write( "##project: " + project + "\n" )
+	file.write( "##goal: " + goal + "\n" ) 
+	file.write( "##actions" + "\n" )
+	while True:             
+		action = raw_input('enter an action: ')
+		if action == "":
+			break
+		file.write("- [ ]" + action + "\n")
         file.close()
 
-    elif options.todo:
-	output = ("* " + options.todo)
-    	file.write( output + "\n" )
-    	file.close()
+    elif options.archive:
+	shutil.move(active + options.archive, archive)
 
     elif options.idea:
 	output = ("! " + options.idea)
@@ -40,17 +51,11 @@ def main():
     	file.close()
 
     elif options.lst:
-        file = open("ana.log", "r")
-	lines = file.readlines() # Note that the content of line changes 
-	
-	print ''.join(lines)
-	file.close()
-
+	dirs = os.listdir( active )
+	for file in dirs:
+		print file
 
 
 
 if __name__ == "__main__":
     main()
-
-
-
